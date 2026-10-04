@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>moon</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 🎵 Música de fondo -->
+  <audio id="bg-music" src="musicaaa.mp3" loop></audio>
+
+  <div class="canvas">
+    <div class="moon"></div>
+  </div>
+
+  <script>
+    window.addEventListener("load", () => {
+      const music = document.getElementById("bg-music");
+      music.volume = 0.5; // volumen inicial
+
+      const iniciarMusica = () => {
+        music.play();
+        // Quitar los eventos después del primer toque para no saturar
+        document.removeEventListener("click", iniciarMusica);
+        document.removeEventListener("touchstart", iniciarMusica);
+      };
+
+      music.play().catch(() => {
+        console.log("Esperando toque en la pantalla...");
+        // Activar al tocar la pantalla en celular o hacer clic en PC
+        document.addEventListener("touchstart", iniciarMusica);
+        document.addEventListener("click", iniciarMusica);
+      });
+    });
+  </script>
+</body>
+</html>
